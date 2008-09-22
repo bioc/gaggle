@@ -17,6 +17,15 @@
   fullPathToGaggleJar = paste (libname, pkgname, 'jars', 'gaggleRShell.jar', sep=.Platform$file.sep)
   cat ('path to jar:', fullPathToGaggleJar, '\n')
   cat ('      script: ', .scriptVersion (), '\n')
+
+  # Before starting VM, set the system classpath to a blank string
+  # this gets around a bug where RMI objects fail to unmarshal
+  # if the classpath has spaces in it (which it often does on
+  # Windows machines). Yes, this is a weird error.
+
+  Sys.unsetenv("CLASSPATH")
+
+
   .jinit (fullPathToGaggleJar)
   cat ('  os version: ', .jcall ("java/lang/System", "S", "getProperty", "os.name"),'\n')
     
