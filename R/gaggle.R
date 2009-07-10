@@ -75,7 +75,7 @@ gaggleInit <- function (bossHost = 'localhost')
 #---------------------------------------------------------------------------------
 .scriptVersion <- function ()
 {
-  return ("gaggle.R $Revision: 3504 $   $Date: 2008-09-22 10:45:45 -0700 (Mon, 22 Sep 2008) $");
+  return ("gaggle.R $Revision: 4257 $   $Date: 2009-07-10 11:38:47 -0700 (Fri, 10 Jul 2009) $");
 }
 #---------------------------------------------------------------------------------
 getNameList <- function ()
@@ -325,7 +325,7 @@ getNetwork <- function (directed=T)
     } # for
 
    # ---- now traverse the explicit edge attributes, and add them
-  if (!is.null (edas) && !is.na (edas)) for (eda in edas) {
+  if ((!length (edas) == 0) && !is.null (edas) && !is.na (edas)) for (eda in edas) {
     tokens = unlist (strsplit (eda, '::'))
     nodeA = tokens [1]
     nodeB = tokens [2]
@@ -347,7 +347,7 @@ getNetwork <- function (directed=T)
     edgeData (g, from=nodeA, to=nodeB, attr=attributeName) = attributeValue
   } # if edge attributes
 
-  if (!is.null (noas) && !is.na (noas) && length (noas) > 0) for (noa in noas) {
+  if ((!length (noas) == 0) && !is.null (noas) && !is.na (noas)) for (noa in noas) {
     tokens = unlist (strsplit (noa, '::'))
     node = tokens [1]
     attributeName = tokens [2]
